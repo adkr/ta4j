@@ -278,7 +278,7 @@ public final class DecimalNum implements Num {
     @Override
     public Num plus(Num augend) {
         if (augend.isNaN()) {
-            return NaN;
+            return new DecimalNum(this.delegate, mathContext.getPrecision());
         }
         BigDecimal bigDecimal = ((DecimalNum) augend).delegate;
         int precision = mathContext.getPrecision();
@@ -297,7 +297,7 @@ public final class DecimalNum implements Num {
     @Override
     public Num minus(Num subtrahend) {
         if (subtrahend.isNaN()) {
-            return NaN;
+            return new DecimalNum(this.delegate, mathContext.getPrecision());
         }
         BigDecimal bigDecimal = ((DecimalNum) subtrahend).delegate;
         int precision = mathContext.getPrecision();
@@ -316,7 +316,7 @@ public final class DecimalNum implements Num {
     @Override
     public Num multipliedBy(Num multiplicand) {
         if (multiplicand.isNaN()) {
-            return NaN;
+            return new DecimalNum(this.delegate, mathContext.getPrecision());
         }
         BigDecimal bigDecimal = ((DecimalNum) multiplicand).delegate;
         int precision = mathContext.getPrecision();
@@ -334,7 +334,10 @@ public final class DecimalNum implements Num {
      */
     @Override
     public Num dividedBy(Num divisor) {
-        if (divisor.isNaN() || divisor.isZero()) {
+        if (divisor.isNaN()) {
+            return new DecimalNum(this.delegate, mathContext.getPrecision());
+        }
+        if (divisor.isZero()) {
             return NaN;
         }
         BigDecimal bigDecimal = ((DecimalNum) divisor).delegate;
@@ -450,7 +453,7 @@ public final class DecimalNum implements Num {
             try {
                 estimate = (BigDecimal) format.parse(estimateString);
             } catch (ParseException e) {
-                log.error("PrecicionNum ParseException:", e);
+                log.error("PrecisionNum ParseException:", e);
             }
         }
         BigDecimal delta;
@@ -597,7 +600,7 @@ public final class DecimalNum implements Num {
      */
     @Override
     public boolean isEqual(Num other) {
-        return !other.isNaN() && compareTo(other) == 0;
+        return other.isNaN() || compareTo(other) == 0;
     }
 
     /**
@@ -645,7 +648,7 @@ public final class DecimalNum implements Num {
      */
     @Override
     public boolean isGreaterThan(Num other) {
-        return !other.isNaN() && compareTo(other) > 0;
+        return other.isNaN() || compareTo(other) > 0;
     }
 
     /**
@@ -657,7 +660,7 @@ public final class DecimalNum implements Num {
      */
     @Override
     public boolean isGreaterThanOrEqual(Num other) {
-        return !other.isNaN() && compareTo(other) > -1;
+        return other.isNaN() || compareTo(other) > -1;
     }
 
     /**
@@ -668,12 +671,12 @@ public final class DecimalNum implements Num {
      */
     @Override
     public boolean isLessThan(Num other) {
-        return !other.isNaN() && compareTo(other) < 0;
+        return other.isNaN() || compareTo(other) < 0;
     }
 
     @Override
     public boolean isLessThanOrEqual(Num other) {
-        return !other.isNaN() && delegate.compareTo(((DecimalNum) other).delegate) < 1;
+        return other.isNaN() || delegate.compareTo(((DecimalNum) other).delegate) < 1;
     }
 
     @Override
@@ -691,7 +694,7 @@ public final class DecimalNum implements Num {
      */
     @Override
     public Num min(Num other) {
-        return other.isNaN() ? NaN : (compareTo(other) <= 0 ? this : other);
+        return other.isNaN() ? other : (compareTo(other) <= 0 ? this : other);
     }
 
     /**
@@ -704,7 +707,7 @@ public final class DecimalNum implements Num {
      */
     @Override
     public Num max(Num other) {
-        return other.isNaN() ? NaN : (compareTo(other) >= 0 ? this : other);
+        return other.isNaN() ? other : (compareTo(other) >= 0 ? this : other);
     }
 
     @Override
