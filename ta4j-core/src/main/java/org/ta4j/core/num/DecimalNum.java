@@ -278,7 +278,7 @@ public final class DecimalNum implements Num {
     @Override
     public Num plus(Num augend) {
         if (augend.isNaN()) {
-            return new DecimalNum(this.delegate, mathContext.getPrecision());
+            return NaN;
         }
         BigDecimal bigDecimal = ((DecimalNum) augend).delegate;
         int precision = mathContext.getPrecision();
@@ -297,7 +297,7 @@ public final class DecimalNum implements Num {
     @Override
     public Num minus(Num subtrahend) {
         if (subtrahend.isNaN()) {
-            return new DecimalNum(this.delegate, mathContext.getPrecision());
+            return NaN;
         }
         BigDecimal bigDecimal = ((DecimalNum) subtrahend).delegate;
         int precision = mathContext.getPrecision();
@@ -316,7 +316,7 @@ public final class DecimalNum implements Num {
     @Override
     public Num multipliedBy(Num multiplicand) {
         if (multiplicand.isNaN()) {
-            return new DecimalNum(this.delegate, mathContext.getPrecision());
+            return NaN;
         }
         BigDecimal bigDecimal = ((DecimalNum) multiplicand).delegate;
         int precision = mathContext.getPrecision();
@@ -334,10 +334,7 @@ public final class DecimalNum implements Num {
      */
     @Override
     public Num dividedBy(Num divisor) {
-        if (divisor.isNaN()) {
-            return new DecimalNum(this.delegate, mathContext.getPrecision());
-        }
-        if (divisor.isZero()) {
+        if (divisor.isNaN() || divisor.isZero()) {
             return NaN;
         }
         BigDecimal bigDecimal = ((DecimalNum) divisor).delegate;
