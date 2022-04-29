@@ -35,9 +35,9 @@ import org.ta4j.core.num.Num;
 public class CrossIndicator extends CachedIndicator<Boolean> {
 
     /** Upper indicator */
-    private final Indicator<Num> up;
+    private Indicator<Num> up;
     /** Lower indicator */
-    private final Indicator<Num> low;
+    private Indicator<Num> low;
 
     /**
      * Constructor.
@@ -87,5 +87,13 @@ public class CrossIndicator extends CachedIndicator<Boolean> {
     @Override
     public String toString() {
         return getClass().getSimpleName() + " " + low + " " + up;
+    }
+
+    public void setUp(Indicator<Num> up) {
+        this.up = up;
+    }
+
+    public void setLow(Indicator<Num> low) {
+        this.low = low;
     }
 }

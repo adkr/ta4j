@@ -71,4 +71,8 @@ public class PreviousValueIndicator extends CachedIndicator<Num> {
         final String nInfo = n == 1 ? "" : "(" + n + ")";
         return getClass().getSimpleName() + nInfo + "[" + this.indicator + "]";
     }
+
+    public void setIndicator(Indicator<Num> indicator) {
+        this.indicator = indicator;
+    }
 }

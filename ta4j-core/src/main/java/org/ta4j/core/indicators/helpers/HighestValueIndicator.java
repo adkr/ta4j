@@ -32,7 +32,7 @@ import org.ta4j.core.num.Num;
  */
 public class HighestValueIndicator extends CachedIndicator<Num> {
 
-    private final Indicator<Num> indicator;
+    private Indicator<Num> indicator;
 
     private final int barCount;
 
@@ -60,5 +60,9 @@ public class HighestValueIndicator extends CachedIndicator<Num> {
     @Override
     public String toString() {
         return getClass().getSimpleName() + " barCount: " + barCount;
+    }
+
+    public void setIndicator(Indicator<Num> indicator) {
+        this.indicator = indicator;
     }
 }
