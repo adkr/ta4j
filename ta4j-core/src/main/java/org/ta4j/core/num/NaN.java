@@ -104,22 +104,22 @@ public class NaN implements Num {
 
     @Override
     public Num plus(Num augend) {
-        return this;
+        return augend;
     }
 
     @Override
     public Num minus(Num subtrahend) {
-        return this;
+        return subtrahend.negate();
     }
 
     @Override
     public Num multipliedBy(Num multiplicand) {
-        return this;
+        return multiplicand;
     }
 
     @Override
     public Num dividedBy(Num divisor) {
-        return this;
+        return DecimalNum.valueOf(1);
     }
 
     @Override
@@ -224,12 +224,12 @@ public class NaN implements Num {
 
     @Override
     public Num min(Num other) {
-        return this;
+        return other;
     }
 
     @Override
     public Num max(Num other) {
-        return this;
+        return other;
     }
 
     @Override
