@@ -104,22 +104,22 @@ public class NaN implements Num {
 
     @Override
     public Num plus(Num augend) {
-        return augend;
+        return this;
     }
 
     @Override
     public Num minus(Num subtrahend) {
-        return subtrahend.negate();
+        return this;
     }
 
     @Override
     public Num multipliedBy(Num multiplicand) {
-        return multiplicand;
+        return this;
     }
 
     @Override
     public Num dividedBy(Num divisor) {
-        return DecimalNum.valueOf(1);
+        return this;
     }
 
     @Override
@@ -174,17 +174,17 @@ public class NaN implements Num {
 
     @Override
     public boolean isZero() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isPositive() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isPositiveOrZero() {
-        return true;
+        return false;
     }
 
     @Override
@@ -194,42 +194,48 @@ public class NaN implements Num {
 
     @Override
     public boolean isNegativeOrZero() {
-        return true;
+        return false;
     }
 
+    /**
+     * NaN.isEqual(NaN) -> true
+     * 
+     * @param other the other value, not null
+     * @return flase if both values are not NaN
+     */
     @Override
     public boolean isEqual(Num other) {
-        return true;
+        return other != null && other.equals(NaN);
     }
 
     @Override
     public boolean isGreaterThan(Num other) {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isGreaterThanOrEqual(Num other) {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isLessThan(Num other) {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isLessThanOrEqual(Num other) {
-        return true;
+        return false;
     }
 
     @Override
     public Num min(Num other) {
-        return other;
+        return this;
     }
 
     @Override
     public Num max(Num other) {
-        return other;
+        return this;
     }
 
     @Override

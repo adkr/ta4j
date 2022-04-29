@@ -155,29 +155,40 @@ public class NumTest extends AbstractIndicatorTest<Object, Num> {
 
     @Test
     public void testNaN() {
-        Num nan = NaN;
+        Num a = NaN;
         Num eleven = DecimalNum.valueOf(11);
 
-        assertNumEquals(nan.plus(eleven), eleven);
-        assertNumEquals(nan.minus(eleven), eleven.negate());
-        assertNumEquals(nan.dividedBy(nan), DecimalNum.valueOf(1));
-        assertNumEquals(nan.multipliedBy(NaN), NaN);
-        assertNumEquals(nan.multipliedBy(eleven), eleven);
-        assertNumEquals(nan.max(eleven), eleven);
-        assertNumEquals(nan.min(eleven), eleven);
-        assertNumEquals(eleven.min(nan), eleven);
-        assertNumEquals(nan.pow(12), NaN);
-        assertNumEquals(nan.pow(nan), NaN);
-        assertEquals(Double.NaN, nan.doubleValue());
-        assertEquals(Float.NaN, nan.floatValue());
+        Num mustBeNaN = a.plus(eleven);
+        assertNumEquals(mustBeNaN, NaN);
 
-        assertTrue(nan.isEqual(NaN));
-        assertTrue(nan.isEqual(eleven));
-        assertTrue(nan.isGreaterThanOrEqual(eleven));
-        assertTrue(nan.isLessThan(eleven));
-        assertTrue(nan.isLessThanOrEqual(eleven));
+        mustBeNaN = a.minus(eleven);
+        assertNumEquals(mustBeNaN, NaN);
 
-        assertTrue(NaN.equals(nan)); // NaN == NaN -> true
+        mustBeNaN = a.dividedBy(a);
+        assertNumEquals(mustBeNaN, NaN);
+
+        mustBeNaN = a.multipliedBy(NaN);
+        assertNumEquals(mustBeNaN, NaN);
+
+        mustBeNaN = a.max(eleven);
+        assertNumEquals(mustBeNaN, NaN);
+
+        mustBeNaN = eleven.min(a);
+        assertNumEquals(mustBeNaN, NaN);
+
+        mustBeNaN = a.pow(12);
+        assertNumEquals(mustBeNaN, NaN);
+
+        mustBeNaN = a.pow(a);
+        assertNumEquals(mustBeNaN, NaN);
+
+        Double nanDouble = a.doubleValue();
+        assertEquals(Double.NaN, nanDouble);
+
+        Float nanFloat = a.floatValue();
+        assertEquals(Float.NaN, nanFloat);
+
+        assertTrue(NaN.equals(a)); // NaN == NaN -> true
 
     }
 
